@@ -1,0 +1,31 @@
+{
+  "name": "systarch-mailhog",
+  "version": "1.1.1",
+  "author": "systarch",
+  "summary": "Install & Configure MailHog",
+  "license": "Apache-2.0",
+  "source": "https://github.com/systarch/systarch-mailhog/",
+  "project_page": "https://github.com/systarch/systarch-mailhog/",
+  "issues_url": "https://github.com/systarch/systarch-mailhog/issues",
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":">= 4.10.0 < 7.0.0"}
+  ],
+  "data_provider": null,
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04",
+        "12.04"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "10",
+        "9",
+        "8"
+      ]
+    }
+  ]
+}

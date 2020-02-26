@@ -1,0 +1,8 @@
+/pkg
+.tmp
+.librarian
+.idea
+Gemfile.lock
+
+spec/fixtures/manifests/
+spec/fixtures/modules/

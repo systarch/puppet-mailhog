@@ -31,10 +31,10 @@ Due to the size limitation on puppet forge the module will download the mailhog 
 
 ### What mailhog affects
 
-* Deploys mailhog binary depending on the architecture the local machine uses (amd64, arm or x86). 
-* Creates a "mailhog" user
+* Deploys mailhog binary depending on the architecture the local machine uses (amd64, arm or x86) from [MailHog github releases page](https://github.com/mailhog/MailHog/releases/download) or from the puppetmaster.
+* Creates a "mailhog" user with home at `/var/lib/mailhog`
 * Deploys a mailhog.conf file with the available config values
-* Installs "daemon" package
+* Installs "daemon" and "curl" package
 * Deploys a initd script to start/stop mailhog as a daemon
 
 
@@ -42,7 +42,6 @@ Due to the size limitation on puppet forge the module will download the mailhog 
 
 This mailhog module requires:
 * [puppetlabs-stdlib](https://forge.puppetlabs.com/puppetlabs/stdlib) 
-* [maestrodev-wget](https://forge.puppetlabs.com/maestrodev/wget)
 
 
 ### Beginning with mailhog
@@ -85,11 +84,11 @@ Due to the size limit of packages uploaded to the Forge, the module was designed
 * `$download_mailhog = true` (default): The MailHog binary will be downloaded from the official MailHog Github repository. This is good for a few servers as this is very modular and the module can be used right away. 
 * `$download_mailhog = false`: The MailHog binary will be sourced from the "files" subdirectory of this module. This is perfect to roll out multiple hosts with this module. In case this feature is required, the admin needs to download the 3 MailHog Linux binaries (MailHog_linux_386, MailHog_linux_arm, MailHog_linux_amd64) to the "files" folder of this module. Just call the mailhog class with `$download_mailhog = false`.  
 
-###Parameters
-The following parameters are available in the ::mailhog class:
+### Parameters
+The following parameters are available in the `mailhog` class:
 
 
-####MailHog config values
+#### MailHog config values
 | parameter                                |      default value      |  description |
 |------------------------------------------|-------------------------|--------------|
 | `$api_bind_ip`          | 0.0.0.0   | The IP address the API server will be bound to. |
@@ -119,10 +118,10 @@ The following parameters are available in the ::mailhog class:
 
 
 
-####Puppet module config values
+#### Puppet module config values
 | parameter                                |      default value       |  description |
 |------------------------------------------|--------------------------|--------------|
-| `$mailhog_version`              | 0.2.0                    | Version of Mailhog to be used. Feel free to look up the latest release version from [GitHub](https://github.com/mailhog/MailHog/releases/latest) |
+| `$mailhog_version`              | 1.0.0                    | Version of Mailhog to be used. Feel free to look up the latest release version from [GitHub](https://github.com/mailhog/MailHog/releases/latest) |
 | `$config`               | /etc/mailhog.conf        | Path and filename for mailhog config file at the target system |
 | `$mailhog::service_manage`               | true                     | Whether the service should be managed by this module or not. |
 | `$service_enable`       | true                     | Whether the service should be started on boot or not. |
@@ -130,27 +129,24 @@ The following parameters are available in the ::mailhog class:
 | `$service_name`         | mailhog                  | Name of the service |
 | `$binary_path`          | /usr/bin                 | Where to place the mailhog binary at the target system |
 | `$user`                 | mailhog                  | Username of the user running mailhog service at the target system. |
-| `$homedir`              | /var/lib/mailhog         | Home directory of above mailhog user. |
+| `$user_home`            | /var/lib/mailhog         | Home directory of above mailhog user. |
 | `$download_mailhog`     | true                     | Enable/Disable wget download of MailHog binary. |
 
 
 ## Limitations
 
-Today the module was tested with Ubuntu 14.04 and 12.04 only. It might work with other Linux versions though. The more time I have the more I will test. Any help would be really appreciated. 
+Previously, the module was tested with Ubuntu 14.04 and 12.04 only and those should continue to work. 
+Since v2.0.0, also Debian 8, 9 and 10 are supported.
 
 
 ## Development
 
 Feel free to pull the repository and commit changes. I will review them asap and add them if I think they are helpful or reasonable. No guarantees but a lot of heart ;-)
 
-## Testing
-
-Please run `rake release_checks` before submitting patches.
-
-###Contributors
+## Contributors
 
 This version was cloned from [Florian Taeger](https://github.com/ftaeger) at v1.1.0.
 
-To see who's already involved, see the [list of contributors.](https://github.com/systarcg/systarcg-mailhog/graphs/contributors)
+To see who's already involved, see the [list of contributors.](https://github.com/systarch/systarch-mailhog/graphs/contributors)
 
 

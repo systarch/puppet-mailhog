@@ -20,7 +20,7 @@ NAME="<%= @service_name %>"    # Introduce the short server's name here
 CONF="<%= @config %>"          # Configuration file
 DAEMON="<%= @binary_file %>"   # Introduce the server's location here
 DAEMON_ARGS=""                 # Arguments to run the daemon with
-RUNDIR="/var/run/mailhog"
+RUNDIR="<%= @user_home %>"
 PIDFILE=$RUNDIR/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 

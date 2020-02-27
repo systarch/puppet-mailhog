@@ -8,8 +8,9 @@ class mailhog::install inherits mailhog {
   # Add user to run mailhog with lower privileges
   user { $mailhog::user:
     ensure => 'present',
-    home   => $mailhog::homedir,
+    home   => $mailhog::user_home,
     system => true,
+    shell  => '/usr/sbin/nologin',
   }
 
   package { 'daemon':
@@ -18,30 +19,49 @@ class mailhog::install inherits mailhog {
 
   # Download Mailhog binary
   if $mailhog::download_mailhog {
-    
-    file { "$mailhog::homedir":
+
+    file { $mailhog::user_home:
       ensure => directory,
+      mode   => '0755',
+      owner  => mailhog,
+      group  => root,
     }
 
-    exec { "Download MailHog $mailhog::mailhog_version":
-      command => "/usr/bin/curl -o $mailhog::homedir/mailhog-$mailhog::mailhog_version -L $mailhog::download_url",
-      require => [ Package['curl'], File[ "$mailhog::homedir" ] ],
-      creates => "$mailhog::homedir/mailhog-$mailhog::mailhog_version",
+    file { $mailhog::binary_path:
+      ensure  => directory,
+      mode    => '0755',
+      owner   => root,
+      group   => root,
+      require => File[$mailhog::user_home],
+    }
+    $mailhog_version_file = "${mailhog::binary_path}/mailhog-${mailhog::mailhog_version}"
+
+    exec { "Download MailHog ${mailhog::mailhog_version}":
+      command => "/usr/bin/curl -o '${mailhog_version_file}' -L '${mailhog::download_url}'",
+      require => [
+        Package['curl'],
+        File[ $mailhog::binary_path ],
+      ],
+      creates => $mailhog_version_file,
+      notify  => File[$mailhog_version_file],
     }
 
-    file { "$mailhog::homedir/mailhog-$mailhog::mailhog_version":
-      ensure => present,
-      mode => "0755",
-      require => Exec["Download MailHog $mailhog::mailhog_version"],
-      notify => File["$mailhog::binary_file"],
+    # assert the versioned binary is owned by root
+    file { $mailhog_version_file:
+      ensure  => present,
+      owner   => root,
+      group   => root,
+      mode    => '0755',
+      require => Exec["Download MailHog ${mailhog::mailhog_version}"],
+      notify  => File[$mailhog::binary_file],
     }
 
-    file { "$mailhog::binary_file":
+    file { $mailhog::binary_file:
       ensure => link,
-      target => "$mailhog::homedir/mailhog-$mailhog::mailhog_version",
-      require => File[ "$mailhog::homedir/mailhog-$mailhog::mailhog_version" ],
+      force  => true,
+      target => $mailhog_version_file,
     }
-    
+
     if ! defined(Package['curl']) {
       package { 'curl':
         ensure => installed,
@@ -51,22 +71,14 @@ class mailhog::install inherits mailhog {
 
   # else use binary files located on puppet master.
   else {
-    
-    file { "$mailhog::homedir/mailhog-$mailhog::mailhog_version":
-      ensure => present,
-      mode => "0755",
-      owner  => 'root',
-      group  => 'root',
+    file { $mailhog::binary_file:
+      ensure => file,
+      mode   => '0755',
+      owner  => root,
+      group  => root,
+      force  => true,
       source => $mailhog::source_file,
-      notify => File["$mailhog::binary_file"],
     }
-
-    file { "$mailhog::binary_file":
-      ensure => link,
-      target => "$mailhog::homedir/mailhog-$mailhog::mailhog_version",
-      require => File[ "$mailhog::homedir/mailhog-$mailhog::mailhog_version" ],
-    }
-
   }
 
   # Deploy mailhog init script

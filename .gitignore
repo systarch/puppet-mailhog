@@ -1,8 +1,11 @@
 /pkg
-.tmp
-.librarian
-.idea
+/.tmp
+/.librarian
+/.idea
+/.vagrant
 Gemfile.lock
 
 spec/fixtures/manifests/
 spec/fixtures/modules/
+
+coverage/*

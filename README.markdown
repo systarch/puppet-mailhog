@@ -143,9 +143,14 @@ Today the module was tested with Ubuntu 14.04 and 12.04 only. It might work with
 
 Feel free to pull the repository and commit changes. I will review them asap and add them if I think they are helpful or reasonable. No guarantees but a lot of heart ;-)
 
+## Testing
+
+Please run `rake release_checks` before submitting patches.
 
 ###Contributors
 
-To see who's already involved, see the [list of contributors.](https://github.com/ftaeger/ftaeger-mailhog/graphs/contributors)
+This version was cloned from [Florian Taeger](https://github.com/ftaeger) at v1.1.0.
+
+To see who's already involved, see the [list of contributors.](https://github.com/systarcg/systarcg-mailhog/graphs/contributors)
 
 

@@ -13,7 +13,7 @@ class mailhog::service inherits mailhog {
   if $mailhog::service_manage == true {
     service { $mailhog::service_name:
       ensure     => ($mailhog::ensure == present) ? { true => $mailhog::service_ensure, default => stopped },
-      enable     => $mailhog::service_enable,
+      enable     => ($mailhog::ensure == present) ? { true => $mailhog::service_enable, default => false },
       name       => $mailhog::service_name,
       hasstatus  => true,
       hasrestart => true,

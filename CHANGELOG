@@ -1,3 +1,6 @@
+2020-03-06 Release 2.1.1 (unreleased)
+- Bugfix: Fix runtime issue with service when ensure=>stopped && enable=>true
+
 2020-03-06 Release 2.1.0
 - Allow to set {ensure:absent} to remove the module from a machine
 - replaced deprecated methods with stdlib validate_legacy function

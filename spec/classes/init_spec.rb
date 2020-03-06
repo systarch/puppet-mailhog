@@ -36,6 +36,7 @@ describe 'mailhog' do
           it { is_expected.to contain_user('mailhog').with_ensure('present') }
 
           it { is_expected.to contain_service('mailhog').with_ensure('running') }
+          it { is_expected.to contain_service('mailhog').with_enable(true) }
         end
       end
     end
@@ -74,6 +75,7 @@ describe 'mailhog' do
           it { is_expected.to contain_user('mailhog').with_ensure('absent') }
 
           it { is_expected.to contain_service('mailhog').with_ensure('stopped') }
+          it { is_expected.to contain_service('mailhog').with_enable(false) }
         end
       end
     end

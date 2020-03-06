@@ -20,29 +20,29 @@ class mailhog::params {
 
   #Config values for mailhog config file
   $api_bind_ip            = '0.0.0.0'
-  $api_bind_port          = '8025'
+  $api_bind_port          = 8025
   $api_bind_host          = undef
   $cors_origin            = undef
   $hostname               = $facts['networking']['fqdn']
   $invite_jim             = false
-  $jim_accept             = '0.99'
-  $jim_disconnect         = '0.005'
-  $jim_linkspeed_affect   = '0.01'
-  $jim_linkspeed_max      = '10240'
-  $jim_linkspeed_min      = '10240'
-  $jim_reject_auth        = '0.05'
-  $jim_reject_recipient   = '0.05'
-  $jim_reject_sender      = '0.05'
+  $jim_accept             = 0.99
+  $jim_disconnect         = 0.005
+  $jim_linkspeed_affect   = 0.01
+  $jim_linkspeed_max      = 10240
+  $jim_linkspeed_min      = 10240
+  $jim_reject_auth        = 0.05
+  $jim_reject_recipient   = 0.05
+  $jim_reject_sender      = 0.05
   $mongo_coll             = 'messages'
   $mongo_db               = 'mailhog'
   $mongo_uri_ip           = '127.0.0.1'
-  $mongo_uri_port         = '27017'
+  $mongo_uri_port         = 27017
   $outgoing_smtp          = undef
   $smtp_bind_addr_ip      = '127.0.0.1'
-  $smtp_bind_addr_port    = '1025'
+  $smtp_bind_addr_port    = 1025
   $storage                = 'memory'
   $ui_bind_addr_ip        = '0.0.0.0'
-  $ui_bind_addr_port      = '8025'
+  $ui_bind_addr_port      = 8025
   $user_home              = '/var/lib/mailhog'
 
   $osfamily = $facts['os']['family']

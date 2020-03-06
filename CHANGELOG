@@ -1,5 +1,6 @@
 2020-03-06 Release 2.1.0
 - Allow to set {ensure:absent} to remove the module from a machine
+- replaced deprecated methods with stdlib validate_legacy function
 
 2020-02-26 Release 2.0.0
 - Import module from ftaeger and major upgrades of tests including fixes

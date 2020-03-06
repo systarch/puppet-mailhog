@@ -34,6 +34,7 @@
 #
 
 class mailhog (
+  $ensure                           = present,
   # MailHog config values
   Stdlib::IP::Address $api_bind_ip  = $mailhog::params::api_bind_ip,
   $api_bind_port                    = $mailhog::params::api_bind_port,
@@ -118,5 +119,9 @@ class mailhog (
   contain mailhog::config
   contain mailhog::service
 
-  Class['mailhog::install'] -> Class['mailhog::config'] ~> Class['mailhog::service']
+  if $ensure == present {
+    Class['mailhog::install'] -> Class['mailhog::config'] ~> Class['mailhog::service']
+  } else {
+    Class['mailhog::service'] -> Class['mailhog::install'] -> Class['mailhog::config']
+  }
 }

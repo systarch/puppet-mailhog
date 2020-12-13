@@ -1,5 +1,5 @@
 {
-  "name": "systarch-mailhog",
+  "name": "puppet-mailhog",
   "version": "2.1.0",
   "author": "systarch",
   "summary": "Install & Configure MailHog",

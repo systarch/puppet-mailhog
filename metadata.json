@@ -1,12 +1,12 @@
 {
   "name": "puppet-mailhog",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "author": "systarch",
   "summary": "Install & Configure MailHog",
   "license": "Apache-2.0",
-  "source": "https://github.com/systarch/systarch-mailhog/",
-  "project_page": "https://github.com/systarch/systarch-mailhog/",
-  "issues_url": "https://github.com/systarch/systarch-mailhog/issues",
+  "source": "https://github.com/systarch/puppet-mailhog/",
+  "project_page": "https://github.com/systarch/puppet-mailhog/",
+  "issues_url": "https://github.com/systarch/puppet-mailhog/issues",
   "dependencies": [
     {
       "name":"puppetlabs/stdlib",

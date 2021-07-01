@@ -64,7 +64,7 @@ class mailhog::install inherits mailhog {
       target => $mailhog_version_file,
     }
 
-    if ! defined(Package['curl']) {
+    if $mailhog::manage_curl and ! defined(Package['curl']) {
       package { 'curl':
         ensure => ($mailhog::ensure == present) ? { true => installed, default => absent },
       }

@@ -78,6 +78,7 @@ class mailhog (
   String $mailhog_version                 = $mailhog::params::mailhog_version,
   Stdlib::AbsolutePath $user_home         = $mailhog::params::user_home,
   Boolean $download_mailhog               = $mailhog::params::download_mailhog,
+  Boolean $manage_curl                    = true,
 ) inherits mailhog::params {
 
   contain mailhog::install

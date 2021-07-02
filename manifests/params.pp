@@ -12,6 +12,8 @@ class mailhog::params {
   $service_manage         = true
   $service_enable         = true
   $service_ensure         = 'running'
+  $service_ip             = '0.0.0.0'
+  $service_port           = 8025
   $config_template        = 'mailhog/mailhog.conf.erb'
   $initd_template         = 'mailhog/initd-mailhog.erb'
   $service_name           = 'mailhog'
@@ -19,8 +21,8 @@ class mailhog::params {
   $download_mailhog       = true
 
   #Config values for mailhog config file
-  $api_bind_ip            = '0.0.0.0'
-  $api_bind_port          = 8025
+  $api_bind_ip            = $service_ip
+  $api_bind_port          = $service_port
   $api_bind_host          = undef
   $cors_origin            = undef
   $hostname               = $facts['networking']['fqdn']
@@ -41,8 +43,8 @@ class mailhog::params {
   $smtp_bind_addr_ip      = '127.0.0.1'
   $smtp_bind_addr_port    = 1025
   $storage                = 'memory'
-  $ui_bind_addr_ip        = '0.0.0.0'
-  $ui_bind_addr_port      = 8025
+  $ui_bind_addr_ip        = $service_ip
+  $ui_bind_addr_port      = $service_port
   $user_home              = '/var/lib/mailhog'
 
   $osfamily = $facts['os']['family']

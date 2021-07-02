@@ -9,6 +9,9 @@
 === Changed
 - Changed default mailhog version to https://github.com/mailhog/MailHog/releases/tag/v1.0.1[`v1.0.1`].
 
+=== Fixed
+- Notify the running mailhog service when the mailhog binary is updated.
+
 == https://github.com/systarch/puppet-mailhog/releases/tag/v2.2.0[v2.2.0] (2021-07-01)
 
 === Added

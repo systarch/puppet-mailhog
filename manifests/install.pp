@@ -92,4 +92,9 @@ class mailhog::install inherits mailhog {
     content => template($mailhog::initd_template),
   }
 
+  # Ensure a running service gets notified if the binary changes
+  if $mailhog::ensure == present {
+    File[$mailhog::binary_file] ~> Service[$mailhog::service_name]
+  }
+
 }

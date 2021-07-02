@@ -35,9 +35,12 @@
 
 class mailhog (
   $ensure                                 = present,
+  Stdlib::IP::Address $service_ip         = $mailhog::params::service_ip,
+  Stdlib::Port $service_port              = $mailhog::params::service_port,
+
   # MailHog config values
-  Stdlib::IP::Address $api_bind_ip        = $service_ip,
-  Stdlib::Port $api_bind_port             = $service_port,
+  Stdlib::IP::Address $api_bind_ip        = pick($service_ip, $mailhog::params::ui_bind_addr_ip),
+  Stdlib::Port $api_bind_port             = pick($service_port, $mailhog::params::ui_bind_addr_port),
   Optional[Stdlib::Host] $api_bind_host   = $mailhog::params::api_bind_host,
   Optional[String] $cors_origin           = $mailhog::params::cors_origin,
   Stdlib::Host $hostname                  = $mailhog::params::hostname,
@@ -58,8 +61,8 @@ class mailhog (
   Stdlib::IP::Address $smtp_bind_addr_ip  = $mailhog::params::smtp_bind_addr_ip,
   Stdlib::Port $smtp_bind_addr_port       = $mailhog::params::smtp_bind_addr_port,
   String $storage                         = $mailhog::params::storage,
-  Stdlib::IP::Address $ui_bind_addr_ip    = $service_ip,
-  Stdlib::Port $ui_bind_addr_port         = $service_port,
+  Stdlib::IP::Address $ui_bind_addr_ip    = pick($service_ip, $mailhog::params::ui_bind_addr_ip),
+  Stdlib::Port $ui_bind_addr_port         = pick($service_port, $mailhog::params::ui_bind_addr_port),
 
   # Puppet module config values
   String $config_template                 = $mailhog::params::config_template,
@@ -70,7 +73,6 @@ class mailhog (
   Boolean $service_enable                 = $mailhog::params::service_enable,
   Stdlib::Ensure::Service $service_ensure = $mailhog::params::service_ensure,
   String $service_name                    = $mailhog::params::service_name,
-  Stdlib::IP::Address $service_ip         = $mailhog::params::service_ip,
   Stdlib::AbsolutePath $binary_path       = $mailhog::params::binary_path,
   Stdlib::AbsolutePath $binary_file       = $mailhog::params::binary_file,
   Stdlib::Filesource $source_file         = $mailhog::params::source_file,
@@ -87,8 +89,8 @@ class mailhog (
   contain mailhog::service
 
   if $ensure == present {
-    Class['mailhog::install'] -> Class['mailhog::config'] ~> Class['mailhog::service']
+    Class['mailhog::install'] ~> Class['mailhog::config'] ~> Class['mailhog::service']
   } else {
-    Class['mailhog::service'] -> Class['mailhog::install'] -> Class['mailhog::config']
+    Class['mailhog::service'] ~> Class['mailhog::install'] ~> Class['mailhog::config']
   }
 }

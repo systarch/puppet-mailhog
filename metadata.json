@@ -1,19 +1,18 @@
 {
-  "name": "puppet-mailhog",
+  "name": "systarch-mailhog",
   "version": "2.2.0",
   "author": "systarch",
   "summary": "Install & Configure MailHog",
   "license": "Apache-2.0",
-  "source": "https://github.com/systarch/puppet-mailhog/",
-  "project_page": "https://github.com/systarch/puppet-mailhog/",
-  "issues_url": "https://github.com/systarch/puppet-mailhog/issues",
+  "source": "https://github.com/systarch/systarch-mailhog/",
+  "project_page": "https://github.com/systarch/systarch-mailhog/",
+  "issues_url": "https://github.com/systarch/systarch-mailhog/issues",
   "dependencies": [
     {
-      "name":"puppetlabs/stdlib",
-      "version_requirement":">= 4.25.0 < 7.0.0"
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.25.0 < 7.0.0"
     }
   ],
-  "data_provider": null,
   "operatingsystem_support": [
     {
       "operatingsystem": "Ubuntu",
@@ -36,5 +35,8 @@
       "name": "puppet",
       "version_requirement": ">= 5.5.10 < 7.0.0"
     }
-  ]
+  ],
+  "pdk-version": "2.1.1",
+  "template-url": "https://github.com/puppetlabs/pdk-templates#2.1.1",
+  "template-ref": "tags/2.1.1-0-g03daa92"
 }

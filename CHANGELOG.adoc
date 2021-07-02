@@ -1,20 +1,9 @@
 = Changelog
 
-== unreleases
-// https://github.com/systarch/puppet-mailhog/releases/tag/v2.2.0[v2.2.0] (unreleased)
+== https://github.com/systarch/puppet-mailhog/releases/tag/v2.2.0[v2.2.0] (2021-07-02)
 
 === Added
 - Added convenience parameters `mailhog::service_ip` and `mailhog::service_port` to control both public addresses of the API Service (`mailhog::api_bind_addr_ip`, `mailhog::api_bind_addr_port`) and HTTP Service (`mailhog::ui_bind_addr_ip`, `mailhog::ui_bind_addr_port`). Default remain as `0.0.0.0` and `8025`
-
-=== Changed
-- Changed default mailhog version to https://github.com/mailhog/MailHog/releases/tag/v1.0.1[`v1.0.1`].
-
-=== Fixed
-- Notify the running mailhog service when the mailhog binary is updated.
-
-== https://github.com/systarch/puppet-mailhog/releases/tag/v2.2.0[v2.2.0] (2021-07-01)
-
-=== Added
 - New parameter `mailhog::manage_curl: true` to manage the deinstallation of `curl`.
 +
 When the `mailhog` module is asked to ensure its absence with
@@ -26,8 +15,11 @@ mailhog::manage_curl: false
 ----
 +
 then `$manage_curl` does no longer try to uninstall curl.
+=== Changed
+- Changed default mailhog version to https://github.com/mailhog/MailHog/releases/tag/v1.0.1[`v1.0.1`].
 
 === Fixed
+- Notify the running mailhog service when the mailhog binary is updated.
 - Fix runtime issue with `Service[mailhog]`, when `{ensure => stopped, enable => true}`.
 
 === https://github.com/systarch/puppet-mailhog/releases/tag/v2.1.0[v2.1.0] (2020-03-06)
